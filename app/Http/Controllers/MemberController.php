@@ -57,6 +57,15 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'age' => 'required',
+            'address' => 'required',
+            'telephone' => 'required',
+            'identity_number' => 'required|unique:members',
+            'joined' => 'required',
+            'is_active' => 'required'
+        ]);
         return Member::create($request->all());
     }
 

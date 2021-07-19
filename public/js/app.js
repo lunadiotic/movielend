@@ -26,6 +26,9 @@ $("#modal-btn-save").on("click", function (event) {
         url = form.attr("action"),
         method = $("input[name=_method]").val();
 
+    form.find(".invalid-feedback").remove();
+    form.find(".form-control").removeClass("is-invalid");
+
     $.ajax({
         url: url,
         method: method,
@@ -41,8 +44,22 @@ $("#modal-btn-save").on("click", function (event) {
             });
         },
         error: function (xhr) {
-            var errors = xhr.responseJSON;
-            console.log(errors);
+            var response = xhr.responseJSON;
+            if ($.isEmptyObject(response.errors) == false) {
+                //Jika objek errors ini bukan kosong maka lakukan perulangan
+                $.each(response.errors, function (key, value) {
+                    //lakukan perulangan dari setiap error, dan kita letakkan pada element form tertentu
+                    $("#" + key) //pilih element form dengan ID yang sudah dibuat, SARAN: SAMAKAN DENGAN NAMA TABEL SERVER AGAR MUDAH UNTUK MENAMPILKAN VALIDASI PER KOLOM
+                        .closest(".form-control") //cari class terdekat yang memiliki class "form-group"
+                        .addClass("is-invalid") //tambahkan class "has-error" pada class tersebut yang sama dengan form-group
+                        .closest(".form-group") // di dalam class form-group
+                        .append(
+                            `<div class="invalid-feedback">
+                            ${value}
+                            </div>`
+                        ); //menambahkan element span yang berisikan pesan error yang dihasilkan dari server side
+                });
+            }
         },
     });
 });
