@@ -21,6 +21,7 @@
                                 <th>Name</th>
                                 <th>Telephone</th>
                                 <th>Joined</th>
+                                <th>Status</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -33,6 +34,7 @@
                                 <th>Name</th>
                                 <th>Telephone</th>
                                 <th>Joined</th>
+                                <th>Status</th>
                                 <th></th>
                             </tr>
                         </tfoot>
@@ -57,6 +59,9 @@
                 {data: 'name', name: 'name'},
                 {data: 'telephone', name: 'telephone'},
                 {data: 'joined', name: 'joined'},
+                {data: function(data) {
+                    return data.is_active ? 'Active' : 'Deactive';
+                }, name: 'is_active'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         });

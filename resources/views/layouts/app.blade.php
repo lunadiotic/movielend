@@ -29,6 +29,8 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        @include('layouts._modal')
     </div>
 
     <!-- Scripts -->
@@ -39,6 +41,7 @@
     </script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/r-2.2.9/datatables.min.js"></script>
     @stack('scripts')
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>
