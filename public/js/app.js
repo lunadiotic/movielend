@@ -63,3 +63,43 @@ $("#modal-btn-save").on("click", function (event) {
         },
     });
 });
+
+$("body").on("click", ".btn-delete", function (event) {
+    event.preventDefault();
+
+    var me = $(this),
+        url = me.attr("href"),
+        csrf_token = $('meta[name="csrf-token"]').attr("content");
+
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    _method: "DELETE",
+                    _token: csrf_token,
+                },
+                success: function (response) {
+                    $("#datatable").DataTable().ajax.reload();
+                    Swal.fire(
+                        "Deleted!",
+                        "Your file has been deleted.",
+                        "success"
+                    );
+                },
+                error: function (xhr) {
+                    Swal.fire("Oops...", "Something went wrong!", "error");
+                },
+            });
+        }
+    });
+});

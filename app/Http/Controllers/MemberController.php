@@ -125,6 +125,6 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Member::destroy($id);
     }
 }
