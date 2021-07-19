@@ -18,3 +18,31 @@ $("body").on("click", ".modal-show", function (event) {
 
     $("#modal").modal("show");
 });
+
+$("#modal-btn-save").on("click", function (event) {
+    event.preventDefault();
+
+    var form = $("#modal-body form"),
+        url = form.attr("action"),
+        method = $("input[name=_method]").val();
+
+    $.ajax({
+        url: url,
+        method: method,
+        data: form.serialize(),
+        success: function (response) {
+            form.trigger("reset"); //Clear Form
+            $("#modal").modal("hide"); //Hide modal
+            $("#datatable").DataTable().ajax.reload();
+            Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: "Data has been saved!",
+            });
+        },
+        error: function (xhr) {
+            var errors = xhr.responseJSON;
+            console.log(errors);
+        },
+    });
+});

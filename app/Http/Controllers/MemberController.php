@@ -45,7 +45,8 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        $model = new Member();
+        return view('pages.member.form', compact('model'));
     }
 
     /**
@@ -56,7 +57,7 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Member::create($request->all());
     }
 
     /**

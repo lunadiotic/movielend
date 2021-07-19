@@ -10,7 +10,7 @@
                     <h3 class="panel-title">
                         Members
                         <a href="{{ route('member.create') }}" class="btn btn-sm btn-success modal-show"
-                            title="Create User"><i class="icon-plus"></i> Create</a>
+                            title="Form Member">Create</a>
                     </h3>
                 </div>
                 <div class="card-body">
