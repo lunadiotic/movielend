@@ -45,8 +45,8 @@ class MemberController extends Controller
      */
     public function create()
     {
-        $model = new Member();
-        return view('pages.member.form', compact('model'));
+        $data = new Member();
+        return view('pages.member.form', compact('data'));
     }
 
     /**
@@ -89,7 +89,8 @@ class MemberController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Member::findOrFail($id);
+        return view('pages.member.form', compact('data'));
     }
 
     /**
@@ -101,7 +102,19 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = Member::findOrFail($id);
+        $this->validate($request, [
+            'name' => 'required',
+            'age' => 'required',
+            'address' => 'required',
+            'telephone' => 'required',
+            'identity_number' => 'required|unique:members,identity_number,' . $id,
+            'joined' => 'required',
+            'is_active' => 'required'
+        ]);
+        $data->update($request->all());
+
+        return $data;
     }
 
     /**
