@@ -3,16 +3,22 @@
     @csrf
     <div class="form-group">
         <label>Date of Joined</label>
-        <input type="date" name="joined" id="joined" value="" class="form-control">
+        <input type="date" name="lending" id="lending" value="{{ $data->lending }}" class="form-control">
     </div>
     <div class="form-group">
         <label>Member</label>
         <select name="member_id" id="member_id" class="form-control">
+            @if ($data->exists)
+            <option value="{{ $data->member_id }}">{{ $data->member->name }}</option>
+            @endif
         </select>
     </div>
     <div class="form-group">
         <label>Movie</label>
         <select name="movie_id" id="movie_id" class="form-control">
+            @if ($data->exists)
+            <option value="{{ $data->movie_id }}">{{ $data->movie->title }}</option>
+            @endif
         </select>
     </div>
 </form>
