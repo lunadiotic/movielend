@@ -45,7 +45,8 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        $data = new Movie();
+        return view('pages.movie.form', compact('data'));
     }
 
     /**
@@ -56,7 +57,12 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'genre' => 'required',
+            'released' => 'required',
+        ]);
+        return Movie::create($request->all());
     }
 
     /**
@@ -67,7 +73,8 @@ class MovieController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Movie::findOrFail($id);
+        return view('pages.movie.show', compact('data'));
     }
 
     /**
@@ -78,7 +85,8 @@ class MovieController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Movie::findOrFail($id);
+        return view('pages.movie.form', compact('data'));
     }
 
     /**
@@ -90,7 +98,15 @@ class MovieController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = Movie::findOrFail($id);
+        $this->validate($request, [
+            'title' => 'required',
+            'genre' => 'required',
+            'released' => 'required'
+        ]);
+        $data->update($request->all());
+
+        return $data;
     }
 
     /**
@@ -101,7 +117,7 @@ class MovieController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Movie::destroy($id);
     }
 
 
