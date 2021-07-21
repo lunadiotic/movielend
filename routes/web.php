@@ -21,3 +21,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('member', 'MemberController');
 Route::resource('movie', 'MovieController');
+Route::resource('lending', 'LendingController');
+Route::resource('return', 'ReturnController');

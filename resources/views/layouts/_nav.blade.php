@@ -24,8 +24,11 @@
                         <a class="dropdown-item" href="{{ route('movie.index') }}">
                             Movies
                         </a>
-                        <a class="dropdown-item" href="#">
-                            Lendings
+                        <a class="dropdown-item" href="{{ route('lending.index') }}">
+                            Lending
+                        </a>
+                        <a class="dropdown-item" href="{{ route('return.index') }}">
+                            Return
                         </a>
                     </div>
                 </li>
