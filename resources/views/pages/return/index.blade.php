@@ -9,8 +9,6 @@
                 <div class="card-header">
                     <h3 class="panel-title">
                         Returned List
-                        <a href="{{ route('return.create') }}" class="btn btn-sm btn-success modal-show"
-                            title="Form Lending">Create</a>
                     </h3>
                 </div>
                 <div class="card-body">

@@ -22,6 +22,7 @@
                                 <th>Member</th>
                                 <th>Movie</th>
                                 <th>Lending Date</th>
+                                <th>Return</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -50,6 +51,15 @@
                 {data: 'member.name', name: 'member'},
                 {data: 'movie.title', name: 'movie'},
                 {data: 'lending', name: 'lending'},
+                {data: function(data){
+                    return `
+                        <a href="/return/${data.id}/edit"
+                            class="btn btn-sm btn-success modal-show edit"
+                            title="Return Movie"
+                        >
+                            Return
+                        </a>`
+                }, name: 'return '},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         });

@@ -37,4 +37,21 @@ class ReturnController extends Controller
 
         return view('pages.return.index');
     }
+
+    public function edit($id)
+    {
+        $data = Lending::find($id);
+        return view('pages.return.form', compact('data'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = Lending::findOrFail($id);
+        $this->validate($request, [
+            'returned' => 'required',
+        ]);
+        $data->update($request->all());
+
+        return $data;
+    }
 }
