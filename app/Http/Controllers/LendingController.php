@@ -37,4 +37,15 @@ class LendingController extends Controller
 
         return view('pages.lending.index');
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $data = new Lending();
+        return view('pages.lending.form', compact('data'));
+    }
 }

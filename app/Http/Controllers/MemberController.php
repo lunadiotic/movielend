@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Member;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\If_;
 use Yajra\DataTables\Facades\DataTables;
 
 class MemberController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['getMemberActive']);
     }
 
     /**
@@ -126,5 +127,18 @@ class MemberController extends Controller
     public function destroy($id)
     {
         return Member::destroy($id);
+    }
+
+    public function getMemberActive(Request $request)
+    {
+        $data = [];
+        if ($request->has('search')) {
+            $search = $request->search;
+            $data = Member::select("id", "name")
+                ->where('is_active', true)
+                ->where('name', 'LIKE', "%{$search}%")
+                ->get();
+        }
+        return response()->json($data);
     }
 }

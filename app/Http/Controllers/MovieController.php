@@ -10,7 +10,7 @@ class MovieController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['getMovie']);
     }
 
     /**
@@ -102,5 +102,18 @@ class MovieController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function getMovie(Request $request)
+    {
+        $data = [];
+        if ($request->has('search')) {
+            $search = $request->search;
+            $data = Movie::select("id", "title")
+                ->where('title', 'LIKE', "%{$search}%")
+                ->get();
+        }
+        return response()->json($data);
     }
 }
