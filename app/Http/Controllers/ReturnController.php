@@ -38,6 +38,18 @@ class ReturnController extends Controller
         return view('pages.return.index');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $data = Lending::findOrFail($id);
+        return view('pages.return.show', compact('data'));
+    }
+
     public function edit($id)
     {
         $data = Lending::find($id);
@@ -53,5 +65,16 @@ class ReturnController extends Controller
         $data->update($request->all());
 
         return $data;
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        return Lending::destroy($id);
     }
 }
